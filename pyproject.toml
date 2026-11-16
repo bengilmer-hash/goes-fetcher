@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "goes-fetcher"
+version = "0.1.0"
+requires-python = ">=3.9"
+dependencies = [
+	"numpy",
+	"matplotlib",
+	"xarray",
+	"requests",
+	"beautifulsoup4",
+	"netCDF4",
+]
+
+[tool.setuptools.packages.find]
+where =["src"]

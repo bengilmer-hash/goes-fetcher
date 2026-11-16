@@ -46,12 +46,13 @@ def GOES_data_fetcher(goes_version: str, first_date: datetime, num_days=1, level
     if file_name == None:
         file_name = f'g{goes_version}_d{first_date_ymd}_n{num_days}_{level}.npz'
 
-    cwd = Path.cwd()
+    # Anchor to the script's location so the lookup doesn't depend on where it is run from
+    cwd = Path(__file__).resolve().parent
 
     path = cwd / folder_name
     file = path / file_name
 
-    if file.is_file:
+    if file.is_file() == True:
         print(f'GOES data found in local directory: {path}')
 
 
@@ -71,7 +72,7 @@ def GOES_data_fetcher(goes_version: str, first_date: datetime, num_days=1, level
             date_ym = date.strftime('%Y/%m')
 
             # if the XRS data file exists in the local working directory. If the file does not exist in the local working directory, it will be downloaded to the local working directory from the GOES 16-19 space weather data website.
-            local_directory = './'
+            local_directory = f'{cwd}/'
 
             # Scrape the appropriate webpage based on GOES version
             ssos_supported_goes_versions = ['16','17','18','19']
@@ -121,7 +122,7 @@ def GOES_data_fetcher(goes_version: str, first_date: datetime, num_days=1, level
             else:
                 print(f'Something went wrong, please check file specifics')
 
-            ds = xr.open_dataset(xrs_filename)
+            ds = xr.open_dataset(local_directory + xrs_filename)
 
             ds_list.append(ds)
 
