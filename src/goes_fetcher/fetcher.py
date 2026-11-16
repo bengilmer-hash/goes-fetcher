@@ -46,8 +46,8 @@ def GOES_data_fetcher(goes_version: str, first_date: datetime, num_days=1, level
     if file_name == None:
         file_name = f'g{goes_version}_d{first_date_ymd}_n{num_days}_{level}.npz'
 
-    # Anchor to the script's location so the lookup doesn't depend on where it is run from
-    cwd = Path(__file__).resolve().parent
+    # Search for existing file location
+    cwd = Path.cwd()
 
     path = cwd / folder_name
     file = path / file_name
@@ -193,14 +193,14 @@ def GOES_data_fetcher(goes_version: str, first_date: datetime, num_days=1, level
         
         subfolder.mkdir(parents = True, exist_ok = True)
 
-        path = subfolder / file_name
+        file = subfolder / file_name
         
-        np.savez(path, **d)
+        np.savez(file, **d)
 
         print(f'Saved successfully to {path}')
 
 
-    return path if rtn_path == True else None
+    return file if rtn_path == True else None
 
 
 
