@@ -1,0 +1,6 @@
+numpy
+matplotlib
+xarray
+requests
+beautifulsoup4
+netCDF4
