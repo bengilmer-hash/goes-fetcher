@@ -1,0 +1,16 @@
+name: goes
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - matplotlib
+  - xarray
+  - requests
+  - beautifulsoup4
+  - netcdf4
+  - jupyterlab
+  - ipykernel
+  - pip
+  - pip:
+      - -e .
