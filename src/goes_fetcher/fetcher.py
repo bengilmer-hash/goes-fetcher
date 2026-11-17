@@ -204,7 +204,7 @@ def GOES_data_fetcher(goes_version: str, first_date: datetime, num_days=1, level
 
 
 
-def GOES_plot(path: str, savefig: bool = False, file_name : str = None, folder_name: str = None):
+def GOES_plot(path: str):
     '''
     Plots GOES data pulled via GOES_data_fetcher, does not plot without plt.show being called to prevent pre-plotting
 
@@ -292,19 +292,6 @@ def GOES_plot(path: str, savefig: bool = False, file_name : str = None, folder_n
         plt.xlabel("Time [UT]")
         plt.ylabel(r"X-Ray Flux [W/$m^2$]")
         plt.title(f"GOES Flux curves for {t_dt[0].astype('datetime64[us]').item().date()}")
-
-        if savefig == True:
-            subfolder = folder_name
-
-            file_name = file_name
-
-            dir = Path.cwd() / subfolder
-
-            dir.mkdir(parents = True, exist_ok = True)
-
-            path = dir / file_name
-
-            plt.savefig(path, dpi=300, bbox_inches='tight')
 
         return fig
 
