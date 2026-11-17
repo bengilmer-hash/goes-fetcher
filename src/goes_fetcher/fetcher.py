@@ -258,11 +258,11 @@ def GOES_plot(path: str):
 
     with plt.ioff():
 
-        fig = plt.figure(0, figsize=[10, 7])
+        fig, ax = plt.subplots(figsize=[10, 7])
 
         for i in range(2):
 
-            plt.plot(
+            ax.plot(
                 t_dt,
                 fluxes[i],
                 linewidth = 1,
@@ -277,7 +277,7 @@ def GOES_plot(path: str):
                 bad_ts = t_dt[group]
                 bad_data = fluxes[i][group]
 
-                plt.fill_between(
+                ax.fill_between(
                     bad_ts,
                     y1= plt.ylim()[-1],
                     y2 = plt.ylim()[0], # Fills down to the bottom of the current plot axis
@@ -287,11 +287,11 @@ def GOES_plot(path: str):
                 )
 
 
-        plt.yscale("log")
-        plt.legend(loc="upper right", prop={"size": 12})
-        plt.xlabel("Time [UT]")
-        plt.ylabel(r"X-Ray Flux [W/$m^2$]")
-        plt.title(f"GOES Flux curves for {t_dt[0].astype('datetime64[us]').item().date()}")
+        ax.set_yscale("log")
+        ax.legend(loc="upper right", prop={"size": 12})
+        ax.set_xlabel("Time [UT]")
+        ax.set_ylabel(r"X-Ray Flux [W/$m^2$]")
+        ax.set_title(f"GOES Flux curves for {t_dt[0].astype('datetime64[us]').item().date()}")
 
         return fig
 
